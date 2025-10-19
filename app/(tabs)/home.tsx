@@ -38,7 +38,7 @@ export default function HomeScreen() {
         <View style={{ marginBottom: spacing.xl }}>
           <Text style={[typography.bodySmall, { color: theme.mutedForeground }]}>Welcome back,</Text>
           <Text style={[typography.h2, { color: theme.foreground, fontWeight: "700" }]}>
-            {user?.user_metadata?.full_name || "Member"}
+            {user?.fullName || "Member"}
           </Text>
         </View>
 

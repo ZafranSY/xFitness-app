@@ -15,8 +15,7 @@ export default function ProfileScreen() {
   const colorScheme = useColorScheme()
   const theme = colorScheme === "dark" ? colors.dark : colors.light
 
-  const [fullName, setFullName] = useState(user?.user_metadata?.full_name || "")
-  const [email, setEmail] = useState(user?.email || "")
+  const [fullName, setFullName] = useState(user?.fullName || ""); const [email, setEmail] = useState(user?.email || "")
   const [phone, setPhone] = useState("+60 12-345 6789")
   const [editing, setEditing] = useState(false)
 
@@ -86,7 +85,6 @@ export default function ProfileScreen() {
             onPress={() => setEditing(true)}
             variant="secondary"
             fullWidth
-            style={{ marginBottom: spacing.lg }}
           />
         )}
 
