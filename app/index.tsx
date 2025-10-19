@@ -1,30 +1,22 @@
-"use client"
+import { View, ActivityIndicator, useColorScheme } from "react-native";
+import { colors } from "../lib/theme";
+import * as SplashScreen from 'expo-splash-screen';
 
-import { useEffect } from "react"
-import { useRouter } from "expo-router"
-import { useAuth } from "../contexts/AuthContext"
-import { View, ActivityIndicator, useColorScheme } from "react-native"
-import { colors } from "../lib/theme"
+// Keep the native splash screen visible initially
+SplashScreen.preventAutoHideAsync();
 
-export default function SplashScreen() {
-  const { user, loading } = useAuth()
-  const router = useRouter()
-  const colorScheme = useColorScheme()
-  const theme = colorScheme === "dark" ? colors.dark : colors.light
+export default function InitialRoute() {
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === "dark" ? colors.dark : colors.light;
 
-  useEffect(() => {
-    if (!loading) {
-      if (user) {
-        router.replace("/(tabs)/home")
-      } else {
-        router.replace("/(auth)/login")
-      }
-    }
-  }, [loading, user])
-
+  // Render a simple loading indicator or null.
+  // The actual navigation/redirect logic is now handled in app/_layout.tsx.
+  // This screen is displayed briefly while the auth state is checked.
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: theme.background }}>
       <ActivityIndicator size="large" color={theme.primary} />
     </View>
-  )
+  );
+  // You could also return null here if you prefer the native splash screen stays longer
+  // return null;
 }

@@ -1,6 +1,5 @@
-// app/_layout.tsx
 import { Stack, useRouter, useSegments } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from "expo-status-bar"; // Correct import
 import { AuthProvider, useAuth } from "../contexts/AuthContext";
 import { useColorScheme, View, ActivityIndicator } from "react-native";
 import { colors } from "../lib/theme";
@@ -11,62 +10,69 @@ import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 
 function InitialLayout() {
-  const { user, loading } = useAuth();
-  const segments = useSegments();
-  const router = useRouter();
+  const { user, loading } = useAuth(); // Get user and loading state
+  const segments = useSegments(); // Get current navigation segments
+  const router = useRouter(); // Get router instance
   const colorScheme = useColorScheme();
   const theme = colorScheme === "dark" ? colors.dark : colors.light;
 
   useEffect(() => {
+    // Check if the user is currently in the main app (tabs) section
     const inTabsGroup = segments[0] === '(tabs)';
 
+    // Only navigate when loading is false
     if (!loading) {
       if (user && !inTabsGroup) {
+        // If user is logged in and not in the main app, redirect to home
         router.replace('/(tabs)/home');
-      } else if (!user && inTabsGroup) {
+      } else if (!user) {
+        // If user is not logged in, redirect to login (handles initial load and logout)
+        // No need to check if inTabsGroup here, always go to login if not logged in.
         router.replace('/(auth)/login');
       }
-      // Hide the splash screen once we've decided where to navigate
+      // Once navigation logic is handled, hide the splash screen
       SplashScreen.hideAsync();
     }
-  }, [user, loading, segments]);
+  }, [user, loading, segments]); // Re-run effect when user, loading, or segments change
 
-  // Render loading indicator or null while checking auth state
+  // While loading auth state, return null (or a loading indicator)
+  // This prevents rendering the navigator before auth state is known
   if (loading) {
-    // Optionally show a loading spinner here if you prefer over the splash screen
+    // Return null to keep showing the native splash screen
+    return null;
+    // Or optionally show an ActivityIndicator:
     // return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.background }}><ActivityIndicator size="large" color={theme.primary} /></View>;
-    return null; // Or return null to keep showing the splash screen
   }
 
-
-  // The navigator is rendered only AFTER loading is false
+  // Once loading is false, render the main navigator
   return (
     <>
+      {/* Use 'style' prop for expo-status-bar */}
       <StatusBar style={colorScheme === "dark" ? "light" : "dark"} backgroundColor={theme.background} />
+      {/* Stack Navigator */}
       <Stack
         screenOptions={{
           headerStyle: {
             backgroundColor: theme.background,
           },
           headerTintColor: theme.foreground,
-          headerShadowVisible: false,
+          headerShadowVisible: false, // Hides the header shadow
           contentStyle: {
-            backgroundColor: theme.background,
+            backgroundColor: theme.background, // Set background color for screens
           },
         }}
       >
-        {/* The initial route is handled by the useEffect logic */}
-        {/* These screens are now defined within the navigator */}
+        {/* Define the navigators/screens managed by this Stack */}
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        {/* Make index unusable directly */}
+        {/* The index screen is only used initially and shouldn't be navigable directly */}
         <Stack.Screen name="index" options={{ headerShown: false }} />
       </Stack>
     </>
   );
 }
 
-
+// Export the main RootLayout which wraps everything in the AuthProvider
 export default function RootLayout() {
   return (
     <AuthProvider>

@@ -1,8 +1,7 @@
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useState } from "react"
-
+import { createContext, useContext, useState, useEffect } from "react"
 interface User {
   id: string
   email: string
@@ -28,16 +27,26 @@ const MOCK_USER: User = {
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true); // Initialize loading to true
+  useEffect(() => {
+    const checkAuthState = async () => {
+      // Simulate API delay for checking stored token/session
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      // In a real app, you'd check AsyncStorage or secure store here.
+      // For the mock, we'll just assume no user initially.
+      setUser(null);
+      setLoading(false); // Set loading to false after check
+    };
+    checkAuthState();
+  }, []); // Empty dependency array ensures this runs only once on mount
 
   const signIn = async (email: string, password: string) => {
-    setLoading(true)
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    // Mock authentication - accept any credentials for demo
-    setUser(MOCK_USER)
-    setLoading(false)
-  }
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setUser(MOCK_USER);
+    setLoading(false);
+  };
+
 
   const signUp = async (email: string, password: string, fullName: string) => {
     setLoading(true)
@@ -72,7 +81,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut, resetPassword }}>
       {children}
     </AuthContext.Provider>
-  )
+  );
 }
 
 export function useAuth() {
