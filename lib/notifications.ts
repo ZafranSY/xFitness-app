@@ -1,7 +1,5 @@
 import * as Notifications from "expo-notifications"
 import * as Device from "expo-device"
-import { Platform } from "react-native"
-import { supabase } from "./supabase"
 
 // Configure notification behavior
 Notifications.setNotificationHandler({
@@ -33,29 +31,13 @@ export async function registerForPushNotifications(userId: string) {
 
   const token = (await Notifications.getExpoPushTokenAsync()).data
 
-  // Save token to Supabase
-  try {
-    await supabase.from("device_tokens").upsert(
-      {
-        user_id: userId,
-        token: token,
-        platform: Platform.OS,
-      },
-      {
-        onConflict: "user_id",
-      },
-    )
-  } catch (error) {
-    console.error("Error saving device token:", error)
-  }
+  // Mock: Device token registered
+  console.log("Mock: Device token registered", token)
 
   return token
 }
 
 export async function unregisterPushNotifications(userId: string) {
-  try {
-    await supabase.from("device_tokens").delete().eq("user_id", userId)
-  } catch (error) {
-    console.error("Error removing device token:", error)
-  }
+  // Mock: Device token unregistered for user
+  console.log("Mock: Device token unregistered for user", userId)
 }

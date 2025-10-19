@@ -1,13 +1,15 @@
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useEffect, useState } from "react"
-import type { Session, User } from "@supabase/supabase-js"
-import { supabase } from "../lib/supabase"
-import { registerForPushNotifications, unregisterPushNotifications } from "../lib/notifications"
+import { createContext, useContext, useState } from "react"
+
+interface User {
+  id: string
+  email: string
+  fullName: string
+}
 
 interface AuthContextType {
-  session: Session | null
   user: User | null
   loading: boolean
   signIn: (email: string, password: string) => Promise<void>
@@ -18,78 +20,56 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
+const MOCK_USER: User = {
+  id: "user_123",
+  email: "member@xfitness.com",
+  fullName: "John Doe",
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [session, setSession] = useState<Session | null>(null)
   const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      setUser(session?.user ?? null)
-      setLoading(false)
-
-      if (session?.user) {
-        registerForPushNotifications(session.user.id).catch(console.error)
-      }
-    })
-
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-      setUser(session?.user ?? null)
-
-      if (session?.user) {
-        registerForPushNotifications(session.user.id).catch(console.error)
-      } else {
-        // User logged out, unregister push notifications
-        if (user?.id) {
-          unregisterPushNotifications(user.id).catch(console.error)
-        }
-      }
-    })
-
-    return () => subscription.unsubscribe()
-  }, [])
+  const [loading, setLoading] = useState(false)
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    if (error) throw error
+    setLoading(true)
+    // Simulate API delay
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    // Mock authentication - accept any credentials for demo
+    setUser(MOCK_USER)
+    setLoading(false)
   }
 
   const signUp = async (email: string, password: string, fullName: string) => {
-    const { error } = await supabase.auth.signUp({
+    setLoading(true)
+    // Simulate API delay
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    // Mock registration - create user with provided info
+    setUser({
+      id: "user_" + Date.now(),
       email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-        },
-      },
+      fullName,
     })
-    if (error) throw error
+    setLoading(false)
   }
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut()
-    if (error) throw error
+    setLoading(true)
+    // Simulate API delay
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    setUser(null)
+    setLoading(false)
   }
 
   const resetPassword = async (email: string) => {
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "xfitness://reset-password",
-    })
-    if (error) throw error
+    setLoading(true)
+    // Simulate API delay
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    // Mock password reset - just show success
+    setLoading(false)
   }
 
   return (
-    <AuthContext.Provider value={{ session, user, loading, signIn, signUp, signOut, resetPassword }}>
+    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut, resetPassword }}>
       {children}
     </AuthContext.Provider>
   )

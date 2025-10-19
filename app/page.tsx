@@ -1,84 +1,173 @@
-"use client"
-
-import { useEffect } from "react"
-
 export default function Page() {
-  useEffect(() => {
-    // Redirect to the Expo app info
-    if (typeof window !== "undefined") {
-      document.body.style.margin = "0"
-      document.body.style.padding = "0"
-      document.body.style.fontFamily = "system-ui, -apple-system, sans-serif"
-      document.body.style.background = "#1a1a1a"
-      document.body.style.color = "#ffffff"
-    }
-  }, [])
-
   return (
     <div
-      style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#1a1a1a",
+        color: "#ffffff",
+        fontFamily: "system-ui, -apple-system, sans-serif",
+        padding: "20px",
+      }}
     >
-      <div style={{ maxWidth: "600px", textAlign: "center" }}>
-        <h1 style={{ fontSize: "48px", marginBottom: "20px", color: "#facc15" }}>XFitness</h1>
-        <h2 style={{ fontSize: "28px", marginBottom: "30px", fontWeight: "600" }}>Member Mobile App</h2>
+      <div
+        style={{
+          maxWidth: "600px",
+          textAlign: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "96px",
+            height: "96px",
+            backgroundColor: "#facc15",
+            borderRadius: "48px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0 auto 32px",
+            fontSize: "48px",
+            fontWeight: "bold",
+            color: "#1a1a1a",
+          }}
+        >
+          XF
+        </div>
 
-        <p style={{ fontSize: "18px", marginBottom: "30px", lineHeight: "1.6", color: "#cccccc" }}>
-          This is a React Native Expo application designed for mobile devices.
+        <h1
+          style={{
+            fontSize: "32px",
+            fontWeight: "bold",
+            marginBottom: "12px",
+          }}
+        >
+          XFitness Mobile App
+        </h1>
+
+        <p
+          style={{
+            fontSize: "16px",
+            color: "#a1a1a1",
+            marginBottom: "32px",
+            lineHeight: "1.6",
+          }}
+        >
+          This is a React Native Expo application. To run the mobile app:
         </p>
 
         <div
           style={{
-            background: "#2a2a2a",
-            padding: "30px",
-            borderRadius: "12px",
-            marginBottom: "30px",
+            backgroundColor: "#2a2a2a",
+            borderRadius: "8px",
+            padding: "24px",
+            marginBottom: "32px",
             textAlign: "left",
           }}
         >
-          <h3 style={{ marginTop: "0", color: "#facc15" }}>To run the app:</h3>
-          <ol style={{ lineHeight: "2", color: "#cccccc" }}>
-            <li>
-              Download and install <strong>Expo Go</strong> on your mobile device
-            </li>
-            <li>
-              Run <code style={{ background: "#1a1a1a", padding: "4px 8px", borderRadius: "4px" }}>npm install</code>
-            </li>
-            <li>
-              Run <code style={{ background: "#1a1a1a", padding: "4px 8px", borderRadius: "4px" }}>expo start</code>
-            </li>
-            <li>Scan the QR code with Expo Go</li>
-          </ol>
-        </div>
+          <h2
+            style={{
+              fontSize: "18px",
+              fontWeight: "600",
+              marginBottom: "16px",
+              color: "#facc15",
+            }}
+          >
+            Getting Started
+          </h2>
 
-        <div style={{ background: "#2a2a2a", padding: "30px", borderRadius: "12px", marginBottom: "30px" }}>
-          <h3 style={{ marginTop: "0", color: "#facc15" }}>Features:</h3>
-          <ul style={{ textAlign: "left", lineHeight: "2", color: "#cccccc" }}>
-            <li>✓ Member Authentication (Login/Signup)</li>
-            <li>✓ Membership Management</li>
-            <li>✓ Workout Tracking</li>
-            <li>✓ Class Booking</li>
-            <li>✓ Progress Tracking</li>
-            <li>✓ Gym Access Logs</li>
-            <li>✓ Notifications</li>
-            <li>✓ Payment History</li>
-          </ul>
+          <ol
+            style={{
+              margin: 0,
+              paddingLeft: "20px",
+              color: "#d1d1d1",
+            }}
+          >
+            <li style={{ marginBottom: "12px" }}>
+              <strong>Install dependencies:</strong>
+              <code
+                style={{
+                  display: "block",
+                  backgroundColor: "#1a1a1a",
+                  padding: "8px 12px",
+                  borderRadius: "4px",
+                  marginTop: "8px",
+                  fontSize: "14px",
+                  overflow: "auto",
+                }}
+              >
+                npm install
+              </code>
+            </li>
+            <li style={{ marginBottom: "12px" }}>
+              <strong>Start the development server:</strong>
+              <code
+                style={{
+                  display: "block",
+                  backgroundColor: "#1a1a1a",
+                  padding: "8px 12px",
+                  borderRadius: "4px",
+                  marginTop: "8px",
+                  fontSize: "14px",
+                  overflow: "auto",
+                }}
+              >
+                expo start
+              </code>
+            </li>
+            <li>
+              <strong>Scan the QR code</strong> with Expo Go app on your phone
+            </li>
+          </ol>
         </div>
 
         <div
           style={{
-            background: "#facc15",
-            color: "#1a1a1a",
-            padding: "20px",
-            borderRadius: "12px",
-            marginBottom: "20px",
+            backgroundColor: "#2a2a2a",
+            borderRadius: "8px",
+            padding: "24px",
+            marginBottom: "32px",
           }}
         >
-          <p style={{ margin: "0", fontSize: "16px", fontWeight: "600" }}>
-            📱 Download Expo Go to preview this app on your phone
-          </p>
+          <h2
+            style={{
+              fontSize: "18px",
+              fontWeight: "600",
+              marginBottom: "16px",
+              color: "#facc15",
+            }}
+          >
+            Features
+          </h2>
+
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: "20px",
+              color: "#d1d1d1",
+              textAlign: "left",
+            }}
+          >
+            <li style={{ marginBottom: "8px" }}>✓ Member Authentication</li>
+            <li style={{ marginBottom: "8px" }}>✓ Membership Management</li>
+            <li style={{ marginBottom: "8px" }}>✓ Workout Tracking</li>
+            <li style={{ marginBottom: "8px" }}>✓ Class Booking</li>
+            <li style={{ marginBottom: "8px" }}>✓ Progress Analytics</li>
+            <li style={{ marginBottom: "8px" }}>✓ Notifications</li>
+            <li style={{ marginBottom: "8px" }}>✓ Access Logs</li>
+            <li>✓ User Profile Management</li>
+          </ul>
         </div>
 
-        <p style={{ color: "#999999", fontSize: "14px" }}>Built with Expo 54, React Native, and Supabase</p>
+        <p
+          style={{
+            fontSize: "14px",
+            color: "#707070",
+          }}
+        >
+          This is a UI mockup with dummy data. No backend integration required.
+        </p>
       </div>
     </div>
   )

@@ -19,7 +19,6 @@
     "@react-navigation/native": "^7.1.8",
     "@supabase/supabase-js": "latest",
     "@testing-library/react-native": "latest",
-    "@vercel/analytics": "latest",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "expo": "~54.0.13",
