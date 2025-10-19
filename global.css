@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-[#3a3a3a];
+  }
+
+  body {
+    @apply bg-[#1a1a1a] text-white;
+  }
+}
+
+/* XFitness Color Scheme */
+:root {
+  --primary: #facc15;
+  --primary-dark: #fbbf24;
+  --background: #1a1a1a;
+  --card: #2a2a2a;
+  --border: #3a3a3a;
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
