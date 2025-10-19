@@ -42,7 +42,8 @@ function InitialLayout() {
   // The navigator is rendered only AFTER loading is false
   return (
     <>
-      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} backgroundColor={theme.background} />      <Stack
+      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} backgroundColor={theme.background} />
+      <Stack
         screenOptions={{
           headerStyle: {
             backgroundColor: theme.background,
