@@ -19,6 +19,7 @@
     "@react-navigation/native": "^7.1.8",
     "@supabase/supabase-js": "latest",
     "@testing-library/react-native": "latest",
+    "@vercel/analytics": "latest",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "expo": "~54.0.13",
@@ -39,6 +40,7 @@
     "lucide-react": "^0.454.0",
     "nativewind": "^4.2.1",
     "next": "15.2.4",
+    "next-themes": "latest",
     "react": "^19",
     "react-dom": "^19",
     "react-native": "latest",
@@ -52,6 +54,7 @@
     "react-server-dom-webpack": "latest",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
+    "tw-animate-css": "latest",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
